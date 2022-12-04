@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->enum("role", ["staff", "user"])->default("user");
-            $table->float("balance")->default(0);
             $table->string("login")->unique();
             $table->string("nickname");
+            $table->enum("type", ["staff", "user"])->default("user");
+            $table->float("balance")->default(0);
             $table->string("password");
-            $table->rememberToken();
+            $table->string("api_token")->nullable();
             $table->timestamps();
         });
     }
