@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 
 class StaffMiddleware
@@ -16,9 +17,11 @@ class StaffMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if($request->user()->type !== 'staff'){
-            abort(403);
-        }
+        throw_if(
+            !auth()->check() || $request->user()->type !== 'staff',
+            new AuthenticationException('Only staff allowed to perform this action')
+        );
+
         return $next($request);
     }
 }
