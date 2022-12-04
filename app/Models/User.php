@@ -13,8 +13,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $attributes = ["role" => "user", "balance" => 0];
-
+    protected $attributes = ["type" => "user", "balance" => 0];
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
